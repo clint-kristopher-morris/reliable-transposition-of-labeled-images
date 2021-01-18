@@ -43,10 +43,10 @@ Reconstruct a new label by accounting for the effects of both θ and Φ on both 
 
 ### How to Implement This Method:
 
-"""
+```
 im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data', labeled=False)
 
-"""
+```
 * constant_angle: the angle of the road.
 * num_im: number of augmentations you want.
 * angle: absolute max rotation angle
