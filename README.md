@@ -33,6 +33,9 @@ I am studying the side profile of cars traveling on the interstate, the cars mov
 ### Step: 2
 Find the true points of the vehicle, convert to polar space then translate the image by a random value θ.
 
+* x' = x * cos (Φ) - y * sin(Φ)
+* y' = y * cos (Φ) + x * sin(Φ)
+
 ### Step: 3
 Reconstruct a new label by accounting for the effects of both θ and Φ on both the length or width.
 
