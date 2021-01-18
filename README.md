@@ -1,7 +1,7 @@
 # reliable-transposition-of-labeled-images
 I have been developing and exploring methods to reduce the effort of collecting labeling images for training deep learning models. See my prior work with developing:
-*[A deep learning assisted images scraper ]( https://github.com/clint-kristopher-morris/yolo-assisted-image-scrape)
-*Implementing SCAN (Learning to Classify Images without Labels)
+* [A deep learning assisted images scraper ]( https://github.com/clint-kristopher-morris/yolo-assisted-image-scrape)
+* Implementing SCAN (Learning to Classify Images without Labels)
 
 Another way to expedite the labeling process would be to transpose both the label and image simultaneously. There exist out of the box methods to accomplish this task. One on the best sources being [imgaug](https://imgaug.readthedocs.io/en/latest/source/installation.html).
 However, there are some pitfalls to applying this method to your model labels. The issue with current models is that what lies within the label in a black box with respect to the augmenting model. This makes it extremely difficult to rotate an image and to successfully reconstruct a new label, particularly with the item within the shape has dissimilar lengths and widths. 
@@ -27,8 +27,8 @@ I am studying the side profile of cars traveling on the interstate, the cars mov
 
 ![phiall](https://i.ibb.co/sWmBDtN/phiall500.png)
 
-*Eq1: Label_Width = Vehicle_ Height * sin(Φ) + Vehicle_ Width * cos (Φ)
-*Eq2: Label_ Height = Vehicle_ Height * cos(Φ) + Vehicle_ Width * sin (Φ)
+* Eq1: Label_Width = Vehicle_ Height * sin(Φ) + Vehicle_ Width * cos (Φ)
+* Eq2: Label_ Height = Vehicle_ Height * cos(Φ) + Vehicle_ Width * sin (Φ)
 
 
 
