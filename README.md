@@ -41,10 +41,16 @@ Reconstruct a new label by accounting for the effects of both θ and Φ on both 
 
 ![](https://i.ibb.co/vLGLCdS/final500.png)
 
+- In the figure below, the blue bbox is the original label and red bbox accounts for the true size of the vehicle (step: 1). 
+- While, the yellow bbox displays what it would look like if you only rotated the points from the first image (step: 2). 
+- The white box shows how the function accounts for θ and Φ (step: 3).
+
+![](https://i.ibb.co/YP5PyPr/output650-H.png)
+
 ### How to Implement This Method:
 
 ```
-im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data', labeled=False)
+im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data')
 
 ```
 * constant_angle: the angle of the road.
