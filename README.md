@@ -7,6 +7,7 @@ Another way to expedite the labeling process would be to transpose both the labe
 However, there are some pitfalls to applying this method to your model labels. The issue with current models is that what lies within the label in a black box with respect to the augmenting model. This makes it extremely difficult to rotate an image and to successfully reconstruct a new label, particularly with the item within the shape has dissimilar lengths and widths. 
 For example, in the image below it would be impossible for an augmentation model to know that the item of interest’s length and width are actually much more dissimilar than presented by the label. When rotating and reconstructing a label, the label must translate and scale to the items adjusting new orientation which, can also be seen below.
 
+
 ![phi]( https://i.ibb.co/MN5ZKsv/eg.png)
 
 YOLO labels have the following structure:
