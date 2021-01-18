@@ -78,7 +78,7 @@ def rotate(origin, point, angle):
     return qx, qy
 
 
-def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data', labeled=False):
+def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data'):
     print(colored(f'Generating {num_im} Augmented Images for Every Item Scraped', 'blue'))
     # rotation angle
     if not os.path.exists(outfile):  # place to save augments and labels
