@@ -14,9 +14,21 @@ YOLO labels have the following structure:
 ```
 <object-class> <x>  <y>  <absolute_ width> /<image_width>  <absolute_height> /<image_height>
 ```
-I am studying the side profile of cars traveling on the interstate, the cars move along an inclined surface.
-
+YOLO labels have the following structure:
+```
+<object-class> <x>  <y>  <absolute_ width> /<image_width>  <absolute_height> /<image_height>
+```
+I am studying the side profile of cars traveling on the interstate, the cars move along an inclined surface. Therefore, Φ is known and approximately constant at all locations.
 
 ![phi]( https://i.ibb.co/GJM5Txd/uphill600.png)
+
+### Step 1
+Φ can be leveraged to extract information about contents within the label. The true length and width of the vehicle can be found as follows:
+
+![phiall](https://i.ibb.co/sWmBDtN/phiall500.png)
+
+*Eq1: Label_Width = Vehicle_ Height * sin(Φ) + Vehicle_ Width * cos (Φ)
+*Eq2: Label_ Height = Vehicle_ Height * cos(Φ) + Vehicle_ Width * sin (Φ)
+
 
 
