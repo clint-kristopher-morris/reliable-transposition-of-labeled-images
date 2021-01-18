@@ -41,6 +41,16 @@ Reconstruct a new label by accounting for the effects of both θ and Φ on both 
 
 ![](https://i.ibb.co/vLGLCdS/final500.png)
 
+### How to Implement This Method:
+
+"""
+im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data', labeled=False)
+
+"""
+* constant_angle: the angle of the road.
+* num_im: number of augmentations you want.
+* angle: absolute max rotation angle
+
 
 ### TL;DR
 If you are labeling images with a predictable or consistent rotation rotate your images prior to labeling, if you already have labeled images with a consistent skew you can use a method like this to develop a more effective dataset.
