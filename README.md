@@ -30,16 +30,16 @@ I am studying the side profile of cars traveling on the interstate, the cars mov
 * Eq1: Label_Width = Vehicle_ Height * sin(Φ) + Vehicle_ Width * cos (Φ)
 * Eq2: Label_ Height = Vehicle_ Height * cos(Φ) + Vehicle_ Width * sin (Φ)
 
-## Step: 2
+### Step: 2
 Find the true points of the vehicle, convert to polar space then translate the image by a random value θ.
 
-## Step: 3
+### Step: 3
 Reconstruct a new label by accounting for the effects of both θ and Φ on both the length or width.
 
 ![](https://i.ibb.co/vLGLCdS/final500.png)
 
 
-# TL;DR
+### TL;DR
 If you are labeling images with a predictable or consistent rotation rotate your images prior to labeling, if you already have labeled images with a consistent skew you can use a method like this to develop a more effective dataset.
 
 
