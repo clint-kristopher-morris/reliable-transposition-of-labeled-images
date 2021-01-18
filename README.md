@@ -14,10 +14,6 @@ YOLO labels have the following structure:
 ```
 <object-class> <x>  <y>  <absolute_ width> /<image_width>  <absolute_height> /<image_height>
 ```
-YOLO labels have the following structure:
-```
-<object-class> <x>  <y>  <absolute_ width> /<image_width>  <absolute_height> /<image_height>
-```
 I am studying the side profile of cars traveling on the interstate, the cars move along an inclined surface. Therefore, Φ is known and approximately constant at all locations.
 
 ![phi]( https://i.ibb.co/GJM5Txd/uphill600.png)
