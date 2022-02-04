@@ -1,21 +1,26 @@
-import os
 import glob
-import shutil
-from termcolor import colored
-import numpy as np
-import matplotlib.pyplot as plt
-import imageio
-import imgaug as ia
-import cv2
-from imgaug import augmenters as iaa
-from termcolor import colored
-from sympy import *
 import math
-from scipy import misc
+import os
 import random
+import shutil
+
+import cv2
+import imageio
+import matplotlib.pyplot as plt
+import numpy as np
+from imgaug import augmenters as iaa
+from sympy import *
+from termcolor import colored
+
+from constants import *
 
 
 def extract_labeled(from_dir, to_dir):
+    """ shutil image dir.
+    Args:
+        from_dir (str): path to images to be moved.
+        to_dir (str): path to image destination.
+    """
     if not os.path.exists(to_dir):
         os.mkdir(to_dir)
     os.chdir(from_dir)
@@ -28,6 +33,13 @@ def extract_labeled(from_dir, to_dir):
 
 
 def yolo_class_counter(obj_file, labeled_data):
+    """ shutil image dir.
+    Args:
+        obj_file (object_file): list of yolo classes.
+        labeled_data (str): path to labeled images.
+    Returns:
+        class_count_dict (dict): class tally
+    """
     classes = open(obj_file, "r").read().split()
     class_count_dict = dict(zip(classes, [0] * len(classes)))
     os.chdir(labeled_data)
@@ -41,13 +53,12 @@ def yolo_class_counter(obj_file, labeled_data):
 
 
 def data_viz(count):
+    """ generate bar chart. """
     plt.figure(figsize=(12, 6))
     alphab = list(count.keys())
     frequencies = list(count.values())
-
     pos = np.arange(len(alphab))
     width = 1.0  # gives histogram aspect to the bar diagram
-
     ax = plt.axes()
     ax.set_xticks(pos)
     ax.set_xticklabels(alphab)
@@ -56,21 +67,21 @@ def data_viz(count):
     plt.show()
 
 
-def move_odd_classes(obj_file, labeled_data):
-    classes = open(obj_file, "r").read().split()
-    class_count_dict = dict(zip(classes, [0] * len(classes)))
+def move_odd_classes(labeled_data):
+    """ collected and move minor class (underrepresented class) data. """
     os.chdir(labeled_data)
     for file_txt in glob.glob("*.txt"):
         try:
             class_num = int(open(f'{labeled_data}/{file_txt}', "r").read().split()[0])
-            if class_num in [0, 2, 3, 4, 5, 7, 9, 10, 11, 12]:
+            if class_num in TARGET_CLASSES:
                 file_img = file_txt.replace('.txt', '.jpg')
-                shutil.move(f'{labeled_data}/{file_img}', f'H:/UGA MASTERS/WIM_Project/data/odd/{file_img}')
+                shutil.move(f'{labeled_data}/{file_img}', f'{PATH2ODD_IMAGES}/{file_img}')
         except IndexError:
             print(colored('Missing label for: ', None), colored(file_txt, 'red'))
 
 
 def rotate(origin, point, angle):
+    """ rotate image. """
     ox, oy = origin
     px, py = point
     qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
@@ -78,14 +89,26 @@ def rotate(origin, point, angle):
     return qx, qy
 
 
-def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted', outfile='data/aug_data'):
+def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path='data/sorted',
+                            outfile='data/aug_data'):
+    """ Augment and transpose images.
+    Args:
+        constant_angle (float): needed rotation.
+        num_im (int): count of images to be augmented.
+        angle (int): max angle of rotation.
+        blur (float): blur threshold.
+        color_var (float): color augmentation threshold.
+        path (str): path to sorted data.
+        outfile (str): output path.
+    Returns:
+        class_count_dict (dict): class tally
+    """
     print(colored(f'Generating {num_im} Augmented Images for Every Item Scraped', 'blue'))
     # rotation angle
     if not os.path.exists(outfile):  # place to save augments and labels
         os.makedirs(outfile)
     for file in glob.glob(f"{path}/*.jpg"):  # only loop over images not labels
         for idxer in range(num_im):
-
             theta = random.randint(-1 * angle, angle) * (np.pi / 180)
             # aug options
             seq = iaa.Sequential([
@@ -96,7 +119,6 @@ def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path
             ])
 
             image = imageio.imread(f'{file}')
-            img = cv2.imread(file)
             images = [image] * num_im
             h_im, w_im, c = image.shape
             images_aug = seq(images=images)
@@ -133,7 +155,7 @@ def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path
             points[0] = rotate([0, 0], points[0], theta)
             points[1] = rotate([0, 0], points[1], theta)
             # convert back
-            points = [[(x + 1) * (w_im / 2), (((y + 1) * (h_im / 2)))] for x, y in points]
+            points = [[(x + 1) * (w_im / 2), ((y + 1) * h_im / 2)] for x, y in points]
 
             # step 3 # add angle loss back to the width if theta > 0 or to the height if theta < 0
             if theta > 0:
@@ -156,4 +178,3 @@ def im_aug_transpose_labels(constant_angle, num_im, angle, blur, color_var, path
             cv2.imwrite(f'{name}-aug-{idxer}.jpg', cv2.cvtColor(images_aug[0], cv2.COLOR_BGR2RGB))
             with open(f'{name}-aug-{idxer}.txt', "w") as text_file:
                 text_file.write(YOLO_FORMAT)
-
